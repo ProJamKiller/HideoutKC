@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Hideout Bar & Grill in Gladstone, Missouri. Live music, cold drinks, real food, pool, darts, outdoor seating, and Northland neighborhood energy." />
+  <title>The Hideout Bar & Grill | Gladstone, MO</title>
+
+  <link rel="icon" href="https://bafybeicwx6jmh73m22llxzfbkiubzswac4cs4mlxq6a3wb2uzjwf6ol6gu.ipfs.dweb.link?filename=favicon.jpg.webp" />
+  <link rel="preconnect" href="https://bafybeico4zqqfpwnsctfteqgzvhpukw3onpamscwjcrsmbpagidgzorcly.ipfs.dweb.link" />
+  <link rel="preconnect" href="https://bafybeiczd67p4ube7ltkcyxq4xk3emldcdegyhqnbwdgc72u7edriqwddi.ipfs.dweb.link" />
+  <link rel="preconnect" href="https://bafybeigoqrglbwgibn2lfpf3gefmxxdcu2aqw4ucsifhcyf7rnkulo7hmy.ipfs.dweb.link" />
+
+  <style>
+    :root {
+      --bg: #0b0908;
+      --bg-soft: #15100d;
+      --card: #1d1713;
+      --card-2: #241b15;
+      --text: #f6eee6;
+      --muted: #c9b8a7;
+      --accent: #f0a13a;
+      --accent-2: #d9572b;
+      --line: rgba(255, 255, 255, 0.1);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      --max: 1160px;
+      --radius: 24px;
+      --nav-height: 74px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(217, 87, 43, 0.22), transparent 34rem),
+        radial-gradient(circle at 85% 18%, rgba(240, 161, 58, 0.14), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, video, iframe {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(11, 9, 8, 0.78);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-wrap {
+      width: min(var(--max), calc(100% - 32px));
+      height: var(--nav-height);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid rgba(240, 161, 58, 0.55);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 5px;
+      color: var(--accent);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+    }
+
+    .nav-toggle {
+      width: 46px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .nav-toggle span,
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      width: 20px;
+      height: 2px;
+      display: block;
+      background: var(--text);
+      border-radius: 20px;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .nav-toggle span::before { transform: translateY(-7px); }
+    .nav-toggle span::after { transform: translateY(5px); }
+
+    .nav-toggle[aria-expanded="true"] span { background: transparent; }
+    .nav-toggle[aria-expanded="true"] span::before { transform: translateY(0) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span::after { transform: translateY(-2px) rotate(-45deg); }
+
+    .nav-links {
+      position: absolute;
+      top: var(--nav-height);
+      left: 16px;
+      right: 16px;
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      background: rgba(17, 12, 9, 0.96);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      transform: translateY(-14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links a {
+      padding: 12px 14px;
+      color: var(--muted);
+      font-weight: 800;
+      border-radius: 12px;
+      transition: color 180ms ease, background 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(240, 161, 58, 0.12);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: calc(var(--nav-height) + 48px) 0 48px;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: linear-gradient(rgba(8, 6, 5, 0.52), rgba(8, 6, 5, 0.9)), url("https://bafybeiczd67p4ube7ltkcyxq4xk3emldcdegyhqnbwdgc72u7edriqwddi.ipfs.dweb.link?filename=Ihideoutlogotrippy.JPG");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(11, 9, 8, 0.91), rgba(11, 9, 8, 0.48), rgba(11, 9, 8, 0.82)),
+        radial-gradient(circle at 20% 30%, rgba(217, 87, 43, 0.25), transparent 30rem);
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      max-width: 860px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    h1, h2, h3 {
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 950px;
+      font-size: clamp(3.15rem, 13vw, 7.75rem);
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 8vw, 5rem);
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: clamp(1.25rem, 4vw, 1.65rem);
+    }
+
+    .hero p,
+    .section-copy {
+      max-width: 730px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.7vw, 1.25rem);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 13px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      font-weight: 900;
+      line-height: 1;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(240, 161, 58, 0.5);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #130c08;
+      border-color: transparent;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      background: linear-gradient(135deg, #ffb85b, #f06436);
+    }
+
+    .section {
+      padding: 76px 0;
+      position: relative;
+    }
+
+    .section-grid {
+      display: grid;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .image-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 330px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: var(--card);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      transform: scale(1.03);
+      transition: transform 700ms ease;
+    }
+
+    .image-card:hover img {
+      transform: scale(1.07);
+    }
+
+    .image-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.48));
+    }
+
+    .feature-grid,
+    .menu-grid,
+    .event-grid,
+    .community-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-card,
+    .menu-card,
+    .event-card,
+    .community-card,
+    .info-card {
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      color: var(--text);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+    }
+
+    .feature-card {
+      font-weight: 900;
+    }
+
+    .menu-section {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
+        var(--bg-soft);
+      border-block: 1px solid var(--line);
+    }
+
+    .menu-grid,
+    .event-grid,
+    .community-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .menu-card strong,
+    .event-card strong,
+    .community-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .placeholder-box {
+      margin-top: 24px;
+      padding: 22px;
+      background: rgba(240, 161, 58, 0.08);
+      border: 1px solid rgba(240, 161, 58, 0.22);
+      border-radius: 20px;
+    }
+
+    .placeholder-box p {
+      color: var(--muted);
+    }
+
+    .media-break {
+      min-height: 52vh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      border-block: 1px solid var(--line);
+      background: var(--bg-soft);
+    }
+
+    .media-break img {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.68;
+      transform: scale(1.04);
+    }
+
+    .media-break::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(11, 9, 8, 0.25), rgba(11, 9, 8, 0.9));
+    }
+
+    .media-break-content {
+      padding: 70px 0;
+    }
+
+    .media-break h2 {
+      max-width: 920px;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .info-card a:not(.btn) {
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .map-wrap {
+      overflow: hidden;
+      min-height: 360px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: var(--card);
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 420px;
+      border: 0;
+      filter: grayscale(0.25) invert(0.9) contrast(0.9);
+    }
+
+    .site-footer {
+      padding: 42px 0 96px;
+      border-top: 1px solid var(--line);
+      background: #070605;
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .footer-brand {
+      color: var(--text);
+      font-size: 1.25rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .mobile-cta {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 999;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 8px;
+      background: rgba(11, 9, 8, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-cta a {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .mobile-cta a:first-child {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #130c08;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 720px) {
+      .nav-toggle {
+        display: none;
+      }
+
+      .nav-links {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-links a {
+        padding: 10px 12px;
+        font-size: 0.93rem;
+      }
+
+      .hero {
+        align-items: center;
+        padding-bottom: 0;
+      }
+
+      .section {
+        padding: 110px 0;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr 0.84fr;
+        gap: 54px;
+      }
+
+      .section-grid.reverse {
+        grid-template-columns: 0.78fr 1fr;
+      }
+
+      .section-grid.reverse .image-card {
+        order: -1;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .menu-grid,
+      .event-grid,
+      .community-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .contact-grid {
+        grid-template-columns: 0.8fr 1.2fr;
+        align-items: stretch;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      .site-footer {
+        padding-bottom: 42px;
+      }
+
+      .mobile-cta {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="#home" aria-label="The Hideout Bar & Grill home">
+        <img src="https://bafybeicwx6jmh73m22llxzfbkiubzswac4cs4mlxq6a3wb2uzjwf6ol6gu.ipfs.dweb.link?filename=favicon.jpg.webp" alt="The Hideout Bar & Grill logo" />
+        <span>The Hideout <small>Bar & Grill</small></span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="site-nav" aria-expanded="false">
+        <span></span>
+      </button>
+
+      <nav class="nav-links" id="site-nav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#live-music">Live Music</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-label="The Hideout Bar & Grill hero">
+      <video class="hero-video" autoplay muted loop playsinline poster="https://bafybeiczd67p4ube7ltkcyxq4xk3emldcdegyhqnbwdgc72u7edriqwddi.ipfs.dweb.link?filename=Ihideoutlogotrippy.JPG">
+        <source src="https://bafybeico4zqqfpwnsctfteqgzvhpukw3onpamscwjcrsmbpagidgzorcly.ipfs.dweb.link?filename=headervid.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-content reveal">
+        <span class="eyebrow">Gladstone, Missouri</span>
+        <h1>Northland’s Hideout for Live Music, Cold Drinks, and Damn Good Food</h1>
+        <p>The Hideout Bar & Grill in Gladstone brings together live local music, serious bar food, cold beer, pool, darts, and the kind of neighborhood energy you cannot fake.</p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="#live-music">View Live Music</a>
+          <a class="btn" href="#menu">View Menu</a>
+          <a class="btn" href="tel:8164680550">Call The Hideout</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Intro and vibe">
+      <div class="container section-grid">
+        <div class="reveal">
+          <span class="eyebrow">Neighborhood Room</span>
+          <h2>This Is Where the Northland Hides Out</h2>
+          <p class="section-copy">The Hideout is a neighborhood bar with live music in its bones, food that actually matters, and a crowd that feels more like a community than a customer list. Come in for the music, stay for the food, grab a drink, shoot pool, throw darts, and settle in.</p>
+          <div class="feature-grid">
+            <div class="feature-card reveal">Live Music</div>
+            <div class="feature-card reveal">Great Food</div>
+            <div class="feature-card reveal">Cold Drinks</div>
+            <div class="feature-card reveal">Pool &amp; Darts</div>
+            <div class="feature-card reveal">Outdoor Seating</div>
+            <div class="feature-card reveal">Local Hangout</div>
+          </div>
+        </div>
+
+        <figure class="image-card reveal">
+          <img loading="lazy" src="https://bafybeigoqrglbwgibn2lfpf3gefmxxdcu2aqw4ucsifhcyf7rnkulo7hmy.ipfs.dweb.link?filename=roomshot.jpeg" alt="Packed house at The Hideout Bar & Grill" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="media-break" aria-label="The Hideout atmosphere">
+      <img loading="lazy" src="https://bafybeiczd67p4ube7ltkcyxq4xk3emldcdegyhqnbwdgc72u7edriqwddi.ipfs.dweb.link?filename=Ihideoutlogotrippy.JPG" alt="The Hideout Bar & Grill sign and background" />
+      <div class="container media-break-content reveal">
+        <span class="eyebrow">Food. Drinks. Music. People.</span>
+        <h2>No fake scene. No chain restaurant costume.</h2>
+      </div>
+    </section>
+
+    <section class="section menu-section" id="menu" aria-label="Menu preview">
+      <div class="container section-grid reverse">
+        <div class="reveal">
+          <span class="eyebrow">Menu Preview</span>
+          <h2>Food That Punches Above Bar Food</h2>
+          <p class="section-copy">The Hideout serves the kind of food people actually come back for. Wings, pizza, gumbo, sandwiches, starters, seafood boils, and bar favorites that do more than just fill space on a menu.</p>
+
+          <div class="menu-grid" data-clover-menu-root>
+            <div class="menu-card reveal" data-clover-category="soups-specials"><strong>Gumbo</strong>Rich, loud, and built for people who came hungry.</div>
+            <div class="menu-card reveal" data-clover-category="wings"><strong>Wings</strong>Bar food only works when the wings do their job.</div>
+            <div class="menu-card reveal" data-clover-category="pizza"><strong>Pizza</strong>Easy to share. Hard to stop eating.</div>
+            <div class="menu-card reveal" data-clover-category="seafood"><strong>Seafood Boil</strong>Specials and updates available through the bar.</div>
+            <div class="menu-card reveal" data-clover-category="burgers-sandwiches"><strong>Burgers &amp; Sandwiches</strong>Real food for real nights out.</div>
+            <div class="menu-card reveal" data-clover-category="starters-sides"><strong>Starters &amp; Sides</strong>Built for the table, the game, and the next round.</div>
+          </div>
+
+          <div class="placeholder-box reveal" id="menu-placeholder" data-clover-placeholder>
+            <p>Full online menu coming soon. For now, call The Hideout or follow us on Facebook for current food specials and updates.</p>
+            <div class="button-row">
+              <a class="btn btn-primary" href="tel:8164680550">Call for Menu</a>
+              <a class="btn" href="https://www.facebook.com/share/1CjLWE3WyP/?mibextid=wwXIfr" target="_blank" rel="noopener">Food Updates</a>
+            </div>
+          </div>
+        </div>
+
+        <figure class="image-card reveal">
+          <img loading="lazy" src="https://bafybeib6qiheekx5icwfhxatva7cdm63zz7jp4sigdz3di7awqkrqqmim4.ipfs.dweb.link?filename=jdbike.jpeg" alt="Bike inside The Hideout Bar & Grill" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="live-music" aria-label="Live music">
+      <div class="container section-grid">
+        <div class="reveal">
+          <span class="eyebrow">Live Music</span>
+          <h2>Live Music Without the Velvet Rope</h2>
+          <p class="section-copy">The Hideout is part of the Kansas City Northland live music scene, hosting local musicians, regular music nights, jams, benefits, and weekend shows. No fake scene. No corporate polish. Just musicians, regulars, and a room that knows how to listen.</p>
+
+          <div class="event-grid">
+            <div class="event-card reveal"><strong>Upcoming Shows</strong>Current events and show flyers live on Facebook for now.</div>
+            <div class="event-card reveal"><strong>Weekly Music</strong>Regular music nights, jams, and local players.</div>
+            <div class="event-card reveal"><strong>Weekend Bands</strong>Cold drinks, a live room, and no velvet rope.</div>
+            <div class="event-card reveal"><strong>Special Events</strong>Benefits, bike nights, community nights, and more.</div>
+          </div>
+
+          <div class="button-row">
+            <a class="btn btn-primary" href="https://www.facebook.com/share/1CjLWE3WyP/?mibextid=wwXIfr" target="_blank" rel="noopener">Upcoming Events</a>
+          </div>
+        </div>
+
+        <figure class="image-card reveal">
+          <img loading="lazy" src="https://bafybeigoqrglbwgibn2lfpf3gefmxxdcu2aqw4ucsifhcyf7rnkulo7hmy.ipfs.dweb.link?filename=roomshot.jpeg" alt="Live music crowd at The Hideout" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="media-break" aria-label="Bike night at The Hideout">
+      <img loading="lazy" src="https://bafybeihad7jksnt2yup5bl6mcnbromahwkyh7hmyi27xl4ohwzbbrhfkua.ipfs.dweb.link?filename=bikenight.jpeg" alt="Bike night outside The Hideout Bar & Grill" />
+      <div class="container media-break-content reveal">
+        <span class="eyebrow">Northland Soul</span>
+        <h2>A room full of people who actually want to be there.</h2>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Community">
+      <div class="container section-grid reverse">
+        <div class="reveal">
+          <span class="eyebrow">Community</span>
+          <h2>A Bar That Still Knows What Community Means</h2>
+          <p class="section-copy">The Hideout is more than a place to grab a drink. It is a local room where musicians play, regulars gather, benefits happen, and people actually know each other’s names.</p>
+
+          <div class="community-grid">
+            <div class="community-card reveal"><strong>Local Musicians</strong>A Northland room that gives players a place to play.</div>
+            <div class="community-card reveal"><strong>Benefit Events</strong>Community nights with a real reason behind them.</div>
+            <div class="community-card reveal"><strong>Regulars Welcome</strong>Walk in once. Come back enough and people know your name.</div>
+            <div class="community-card reveal"><strong>Musicians Welcome</strong>Bring the guitar, the friends, and the noise.</div>
+            <div class="community-card reveal"><strong>Neighborhood Atmosphere</strong>Local without trying too hard to prove it.</div>
+          </div>
+        </div>
+
+        <figure class="image-card reveal">
+          <img loading="lazy" src="https://bafybeib6qiheekx5icwfhxatva7cdm63zz7jp4sigdz3di7awqkrqqmim4.ipfs.dweb.link?filename=jdbike.jpeg" alt="Motorcycle inside the neighborhood bar" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section menu-section" id="contact" aria-label="Contact The Hideout">
+      <div class="container">
+        <div class="reveal">
+          <span class="eyebrow">Find Us</span>
+          <h2>Find The Hideout</h2>
+          <p class="section-copy">Pull up, call ahead, check Facebook, or get directions straight to the door.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="info-card reveal">
+            <h3>The Hideout Bar &amp; Grill</h3>
+            <p>6948 N Oak Trafficway<br />Gladstone, MO 64118</p>
+            <p style="margin-top: 16px;"><a href="tel:8164680550">816-468-0550</a></p>
+
+            <div class="button-row">
+              <a class="btn btn-primary" href="tel:8164680550">Call Now</a>
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=6948%20N%20Oak%20Trafficway%2C%20Gladstone%2C%20MO%2064118" target="_blank" rel="noopener">Get Directions</a>
+              <a class="btn" href="https://www.facebook.com/share/1CjLWE3WyP/?mibextid=wwXIfr" target="_blank" rel="noopener">Follow on Facebook</a>
+            </div>
+          </div>
+
+          <div class="map-wrap reveal">
+            <iframe
+              title="Google Map to The Hideout Bar & Grill"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=6948%20N%20Oak%20Trafficway%2C%20Gladstone%2C%20MO%2064118&output=embed">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">The Hideout Bar &amp; Grill</div>
+        <p>Live music. Real food. Cold drinks. Northland soul.</p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#live-music">Live Music</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.facebook.com/share/1CjLWE3WyP/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+        <a href="tel:8164680550">Call Now</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=6948%20N%20Oak%20Trafficway%2C%20Gladstone%2C%20MO%2064118" target="_blank" rel="noopener">Get Directions</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="mobile-cta" aria-label="Quick actions">
+    <a href="tel:8164680550">Call</a>
+    <a href="https://www.google.com/maps/search/?api=1&query=6948%20N%20Oak%20Trafficway%2C%20Gladstone%2C%20MO%2064118" target="_blank" rel="noopener">Directions</a>
+    <a href="https://www.facebook.com/share/1CjLWE3WyP/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+  </div>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links a, .footer-links a[href^="#"]');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navItems.forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const revealItems = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.14,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
+
+    /*
+      Future Clover API setup:
+      Replace the static cards inside [data-clover-menu-root] with fetched categories and items.
+      Recommended data shape:
+      {
+        categories: [
+          {
+            id: 'wings',
+            name: 'Wings',
+            items: [
+              { id: 'item-id', name: 'Buffalo Wings', description: '...', price: 1299, available: true }
+            ]
+          }
+        ]
+      }
+
+      Keep the placeholder visible if Clover data is unavailable.
+    */
+  </script>
+</body>
+</html>
